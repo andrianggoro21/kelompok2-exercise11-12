@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ryan Adikawa",
+      "email": "ryan.adikawa@gmail.com",
+      "password": "ryan12345"
+    },
+    {
+      "name": "rizky",
+      "email": "rizky@purwadhika.com",
+      "password": "rizky12345",
+      "id": 2
+    }
+  ]
+}
