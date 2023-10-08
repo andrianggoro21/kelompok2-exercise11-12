@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const BoxLogin = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
   const [authenticated, setAuthenticated] = useState(false);

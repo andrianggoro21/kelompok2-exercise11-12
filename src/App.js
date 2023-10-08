@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-import Login from './pages/login';
-
+import { Routes, Route } from "react-router-dom"
+import Register from "./pages/register";
+import Login from "./pages/login";
+import DisplayData from "./pages/displayData";
 
 function App() {
   return (
-    <Login />
+    <Routes>
+      <Route path="/" element={<Register/>}></Route>
+      <Route path="/login" element={<Login/>}></Route>
+      <Route path="/display-data" element={<DisplayData/>}></Route>
+    </Routes>
   );
 }
 
