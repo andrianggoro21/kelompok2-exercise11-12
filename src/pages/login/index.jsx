@@ -1,6 +1,8 @@
+import BoxLogin from "../../components/boxLogin";
+
 const Login = () => {
     return(
-        <h1>Halo</h1>
+        <BoxLogin />
     )
 }
 
