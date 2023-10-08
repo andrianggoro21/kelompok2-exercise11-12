@@ -2,16 +2,20 @@ import { FormLabel, FormControl, InputGroup, Input, Button, FormErrorMessage } f
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string()
-        .min(4, "Name must be 6 characters minimum")
+        .min(4, "Name must be 4 characters minimum")
         .required("Name is required"),
     email: Yup.string()
         .email("Invalid email address format")
         .required("Email is required"),
     password: Yup.string()
-        .min(6, "Password must be 6 characters minimum")
+        // .min(6, "Password must be 6 characters minimum")
+        .matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", 
+        `Password must be 6 characters minimum, at least contain one lowercase,
+         one uppercase, one number, and one symbol`)
         .required("Password is required")
 });
 
@@ -30,6 +34,8 @@ const BoxRegister = () => {
         }
     }
 
+    const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -40,6 +46,7 @@ const BoxRegister = () => {
         validationSchema: RegisterSchema,
         onSubmit: (values) => {
             register(values.name, values.email, values.password);
+            navigate("/login")
         },
     });
 
@@ -94,7 +101,9 @@ const BoxRegister = () => {
                         <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
                     )}
                 </FormControl>
+                {/* <Link to="Login"> */}
                 <Button type="submit" colorScheme="facebook">Signup</Button>
+                {/* </Link> */}
             </form>
         </>
     )
