@@ -70,80 +70,77 @@ const BoxRegister = () => {
 
   return (
     <ChakraProvider theme={formFloating}>
-      <Stack p="10%" gap="1em" minH="100vh"
-      align="center"
-      justify="center">
+      <Stack gap="1em" minH="100vh" align="center" justify="center">
         <Heading as="h2">Create your account</Heading>
         <form onSubmit={formik.handleSubmit}>
-        <Box rounded="lg"
-          boxShadow={'lg'} p={6}>
-        <Stack spacing={5} w="40vh">
-            <FormControl
-              variant="floating"
-              isInvalid={formik.touched.name && formik.errors.name}
-            >
-              <InputGroup>
-                <Input
-                  placeholder=" "
-                  type="text"
-                  name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                ></Input>
-                <FormLabel>Name</FormLabel>
-              </InputGroup>
-              {formik.touched.name && formik.errors.name && (
-                <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-              )}
-            </FormControl>
-            <FormControl
-              variant="floating"
-              isInvalid={formik.touched.email && formik.errors.email}
-            >
-              <InputGroup>
-                <Input
-                  placeholder=" "
-                  type="text"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                ></Input>
-                <FormLabel>Email</FormLabel>
-              </InputGroup>
-              {formik.touched.email && formik.errors.email && (
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              )}
-            </FormControl>
-            <FormControl
-              variant="floating"
-              isInvalid={formik.touched.password && formik.errors.password}
-            >
-              <InputGroup>
-                <Input
-                  placeholder=" "
-                  type="password"
-                  name="password"
-                  values={formik.values.password}
-                  onChange={formik.handleChange}
-                ></Input>
-                <FormLabel>Password</FormLabel>
-              </InputGroup>
-              {formik.touched.password && formik.errors.password && (
-                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-              )}
-            </FormControl>
-            {/* <Link to="Login"> */}
-            <Button
-              type="submit"
-              colorScheme="twitter"
-              borderRadius="5em"
-              w="100%"
-            >
-              Signup
-            </Button>
-            {/* </Link> */}
-          </Stack>
-        </Box>
+          <Box rounded="lg" boxShadow={"lg"} p={6}>
+            <Stack spacing={5} w="40vh">
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.name && formik.errors.name}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="text"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Name</FormLabel>
+                </InputGroup>
+                {formik.touched.name && formik.errors.name && (
+                  <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.email && formik.errors.email}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="text"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Email</FormLabel>
+                </InputGroup>
+                {formik.touched.email && formik.errors.email && (
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.password && formik.errors.password}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="password"
+                    name="password"
+                    values={formik.values.password}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Password</FormLabel>
+                </InputGroup>
+                {formik.touched.password && formik.errors.password && (
+                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                )}
+              </FormControl>
+              {/* <Link to="Login"> */}
+              <Button
+                type="submit"
+                colorScheme="twitter"
+                borderRadius="5em"
+                w="100%"
+              >
+                Signup
+              </Button>
+              {/* </Link> */}
+            </Stack>
+          </Box>
         </form>
       </Stack>
     </ChakraProvider>

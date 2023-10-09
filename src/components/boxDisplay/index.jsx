@@ -1,6 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Stack,
+  Box,
+  Heading,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
 
 const BoxDisplay = () => {
   const [data, setData] = useState([]);
@@ -19,18 +33,36 @@ const BoxDisplay = () => {
   }, []);
 
   return (
-    <Box>
-      {data.length > 0 &&
-        data.map((item) => {
-          return (
-            <Box>
-              <Box>{item.name}</Box>
-              <Box>{item.email}</Box>
-              <Box>{item.password}</Box>
-            </Box>
-          );
-        })}
-    </Box>
+    <Stack gap="1em" minH="100vh" align="center" justify="center">
+      <Heading>List Users</Heading>
+      <Box rounded="lg" boxShadow={"lg"} p={6} w="90%">
+        <TableContainer>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Th>No.</Th>
+                <Th>Name</Th>
+                <Th>Email</Th>
+                <Th>Passowrd</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data.length > 0 &&
+                data.map((item, index) => {
+                  return (
+                    <Tr key="index">
+                      <Td>{index + 1}</Td>
+                      <Td>{item.name}</Td>
+                      <Td>{item.email}</Td>
+                      <Td>{item.password}</Td>
+                    </Tr>
+                  );
+                })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Stack>
   );
 };
 
