@@ -2,30 +2,30 @@
   "users": [
     {
       "id": 1,
-      "name": "Ryan Adikawa",
+      "username": "Ryan_Adikawa",
       "email": "ryan.adikawa@gmail.com",
       "password": "ryan12345"
     },
     {
-      "name": "rizky",
+      "username": "rizky",
       "email": "rizky@purwadhika.com",
       "password": "rizky12345",
       "id": 2
     },
     {
-      "name": "qadadada",
+      "username": "qadadada",
       "email": "qad@gmail.com",
       "password": "Ar@123",
       "id": 3
     },
     {
-      "name": "Fairuz",
+      "username": "Fairuz",
       "email": "fairuz@gmail.com",
       "password": "Ae@1233434sdfsdf",
       "id": 4
     },
     {
-      "name": "akang",
+      "username": "akang",
       "email": "akang@gmail.com",
       "password": "A@er123",
       "id": 5
