@@ -1,12 +1,55 @@
-import { Box, Text, Textarea, Input } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Box, Text, Input } from "@chakra-ui/react";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useMediaQuery } from "@chakra-ui/react";
 import Twitter from "../../images/twitter-logo.png";
+import { Link, } from "react-router-dom";
+import axios from "axios";
+import { useFormik } from "formik";
+// import * as Yup from "yup";
 
 const BoxTimeline = () => {
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
   const [isSmallerThan1280] = useMediaQuery("(max-width: 1280px)");
+
+  const inputTimeline = async (posting) => {
+    try {
+      await axios.post("http://localhost:8000/users", {
+        posting,
+      });
+      alert("Input Success");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      posting: "",
+    },
+
+    onSubmit: (values) => {
+      inputTimeline(values.posting);
+    },
+  });
+
+  const [tweet, setTweet] = useState([]);
+  const newTweet = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/users");
+      setTweet(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    newTweet();
+  }, []);
+
   return (
     <>
       <Box
@@ -142,6 +185,10 @@ const BoxTimeline = () => {
                     kelompok 2
                   </Text>
                 </Box>
+                <Box display="flex" flexDirection="column">
+                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
+                </Box>
               </Box>
             </Box>
           )}
@@ -185,9 +232,15 @@ const BoxTimeline = () => {
               justifyContent="space-around"
               borderBottom="1px solid #eeeeee"
             >
-              <form>
+              <form onSubmit={formik.handleSubmit}>
                 <Box w="35em" display="flex" alignItems="flex-end" gap="1em">
-                  <Textarea></Textarea>
+                  <Input
+                    placeholder=" "
+                    type="text"
+                    name="posting"
+                    value={formik.values.posting}
+                    onChange={formik.handleChange}
+                  ></Input>
                   <Button
                     type="submit"
                     backgroundColor="#1DA1F2"
@@ -198,7 +251,32 @@ const BoxTimeline = () => {
                 </Box>
               </form>
             </Box>
-            <Box backgroundColor="#ffffff" minH="75vh"></Box>
+            <Box
+              display="flex"
+              justifyContent="center"
+              padding="1em"
+              backgroundColor="#ffffff"
+              minH="75vh"
+            >
+              <UnorderedList>
+                {tweet.length > 0 &&
+                  tweet.map((item, index) => {
+                    return (
+                      <Box>
+                        <ListItem
+                          fontSize="22px"
+                          fontWeight="500"
+                          color="#000000"
+                          listStyleType='none'
+                          key={index}
+                        >
+                          *{item.posting}
+                        </ListItem>
+                      </Box>
+                    );
+                  })}
+              </UnorderedList>
+            </Box>
           </Box>
           {isSmallerThan768 ? (
             ""

@@ -71,7 +71,7 @@ const BoxLogin = () => {
     validationSchema: LoginSchema,
     onSubmit: (values) => {
       check(values.email, values.password);
-      Navigate("/register");
+      Navigate("/");
     },
   });
 
