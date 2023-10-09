@@ -29,6 +29,12 @@
       "email": "akang@gmail.com",
       "password": "A@er123",
       "id": 5
+    },
+    {
+      "name": "Andri Anggoro",
+      "email": "andri@gmail.com",
+      "password": "Andri12345@",
+      "id": 6
     }
   ]
 }
