@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "posting": "halo nama andri",
+      "id": 1
+    },
+    {
+      "posting": "halo nama saya ryan",
+      "id": 2
+    },
+    {
+      "posting": "halo saya rizky",
+      "id": 3
+    }
+  ]
+}

@@ -1,29 +1,18 @@
-// import logo from './logo.svg';
-import './App.css';
-import { Box } from "@chakra-ui/react";
-import Timeline from './pages/timeline';
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/home";
+import Register from "./pages/register";
+import Login from "./pages/login";
+import DisplayData from "./pages/displayData";
+import Timeline from "./pages/timeline";
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <Box className="body">
-      <Timeline/>
-    </Box>
+    <Routes>
+      <Route path="/" element={<Timeline/>}></Route>
+      <Route path="/register" element={<Register/>}></Route>
+      <Route path="/login" element={<Login/>}></Route>
+      <Route path="/display-data" element={<DisplayData/>}></Route>
+    </Routes>
   );
 }
 
