@@ -143,7 +143,7 @@ const BoxRegister = () => {
                 borderRadius="5em"
                 w="100%"
               >
-                Signup
+                Sign Up
               </Button>
               {/* </Link> */}
             </Stack>
