@@ -123,7 +123,7 @@ const BoxRegister = () => {
                   ></Input>
                   <InputRightElement>
                     <Button
-                      h="100%"
+                      h="90%"
                       size="sm"
                       onClick={() => setShowPassword(!showPassword)}
                     >
