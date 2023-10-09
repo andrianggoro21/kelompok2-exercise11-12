@@ -1,4 +1,16 @@
-import { FormLabel, FormControl, InputGroup, Input, Button, FormErrorMessage } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Box,
+  Heading,
+  FormLabel,
+  FormControl,
+  InputGroup,
+  Input,
+  Button,
+  FormErrorMessage,
+  Stack,
+} from "@chakra-ui/react";
+import formFloating from "../../themes/formFloating";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -20,19 +32,18 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const BoxRegister = () => {
-
-    const register = async(name, email, password) => {
-        try {
-            await axios.post("http://localhost:3000/users", {
-                name,
-                email,
-                password,
-            });
-            alert("Register Success");
-        } catch (err) {
-            console.log(err)
-        }
+  const register = async (name, email, password) => {
+    try {
+      await axios.post("http://localhost:3000/users", {
+        name,
+        email,
+        password,
+      });
+      alert("Register Success");
+    } catch (err) {
+      console.log(err);
     }
+  };
 
     const navigate = useNavigate();
 
@@ -50,63 +61,83 @@ const BoxRegister = () => {
         },
     });
 
-    return (
-        <>
-            <form onSubmit={formik.handleSubmit}>
-                <FormLabel>Name :</FormLabel>
-                <FormControl
-                    isInvalid={formik.touched.name && formik.errors.name}>
-                    <InputGroup>
-                        <Input
-                            type="text"
-                            name="name"
-                            placeholder="Insert your name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                        ></Input>
-                    </InputGroup>
-                    {formik.touched.name && formik.errors.name && (
-                        <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
-                    )}
-                </FormControl>
-                <FormLabel>Email :</FormLabel>
-                <FormControl
-                    isInvalid={formik.touched.email && formik.errors.email}>
-                    <InputGroup>
-                        <Input
-                            type="text"
-                            name="email"
-                            placeholder="Insert your email"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                        ></Input>
-                    </InputGroup>
-                    {formik.touched.email && formik.errors.email && (
-                        <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-                    )}
-                </FormControl>
-                <FormLabel>Password :</FormLabel>
-                <FormControl
-                    isInvalid={formik.touched.password && formik.errors.password}>
-                    <InputGroup>
-                        <Input
-                            type="password"
-                            name="password"
-                            placeholder="Insert your password"
-                            values={formik.values.password}
-                            onChange={formik.handleChange}
-                        ></Input>
-                    </InputGroup>
-                    {formik.touched.password && formik.errors.password && (
-                        <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-                    )}
-                </FormControl>
-                {/* <Link to="Login"> */}
-                <Button type="submit" colorScheme="facebook">Signup</Button>
-                {/* </Link> */}
-            </form>
-        </>
-    )
-}
+  return (
+    <ChakraProvider theme={formFloating}>
+      <Stack gap="1em" minH="100vh" align="center" justify="center">
+        <Heading as="h2">Create your account</Heading>
+        <form onSubmit={formik.handleSubmit}>
+          <Box rounded="lg" boxShadow={"lg"} p={6}>
+            <Stack spacing={5} w="40vh">
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.name && formik.errors.name}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="text"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Name</FormLabel>
+                </InputGroup>
+                {formik.touched.name && formik.errors.name && (
+                  <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.email && formik.errors.email}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="text"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Email</FormLabel>
+                </InputGroup>
+                {formik.touched.email && formik.errors.email && (
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                )}
+              </FormControl>
+              <FormControl
+                variant="floating"
+                isInvalid={formik.touched.password && formik.errors.password}
+              >
+                <InputGroup>
+                  <Input
+                    placeholder=" "
+                    type="password"
+                    name="password"
+                    values={formik.values.password}
+                    onChange={formik.handleChange}
+                  ></Input>
+                  <FormLabel>Password</FormLabel>
+                </InputGroup>
+                {formik.touched.password && formik.errors.password && (
+                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                )}
+              </FormControl>
+              {/* <Link to="Login"> */}
+              <Button
+                type="submit"
+                colorScheme="twitter"
+                borderRadius="5em"
+                w="100%"
+              >
+                Signup
+              </Button>
+              {/* </Link> */}
+            </Stack>
+          </Box>
+        </form>
+      </Stack>
+    </ChakraProvider>
+  );
+};
 
 export default BoxRegister;
