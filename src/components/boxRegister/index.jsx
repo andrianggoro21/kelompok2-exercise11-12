@@ -6,6 +6,7 @@ import {
   FormControl,
   InputGroup,
   Input,
+  InputRightElement,
   Button,
   FormErrorMessage,
   Stack,
@@ -15,6 +16,8 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string()
@@ -60,6 +63,8 @@ const BoxRegister = () => {
             navigate("/login")
         },
     });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <ChakraProvider theme={formFloating}>
@@ -111,11 +116,20 @@ const BoxRegister = () => {
                 <InputGroup>
                   <Input
                     placeholder=" "
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     values={formik.values.password}
                     onChange={formik.handleChange}
                   ></Input>
+                  <InputRightElement>
+                    <Button
+                      h="100%"
+                      size="sm"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </Button>
+                  </InputRightElement>
                   <FormLabel>Password</FormLabel>
                 </InputGroup>
                 {formik.touched.password && formik.errors.password && (
