@@ -1,11 +1,16 @@
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import BoxRegister from "../../components/boxRegister";
 
 const Register = () => {
   return (
-    <Box d="block" h="100vh" m="0">
+    <Flex
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+      bg="twitter.100"
+    >
       <BoxRegister />
-    </Box>
+    </Flex>
   );
 };
 
