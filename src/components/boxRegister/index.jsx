@@ -67,6 +67,8 @@ const BoxRegister = () => {
     },
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <ChakraProvider theme={formFloating}>
       <Stack gap="1em" minH="100vh" align="center" justify="center">
