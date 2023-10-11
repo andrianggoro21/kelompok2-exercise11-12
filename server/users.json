@@ -35,6 +35,12 @@
       "email": "andri@gmail.com",
       "password": "Andri12345@",
       "id": 6
+    },
+    {
+      "name": "asrar",
+      "email": "asrar@purwadhika.com",
+      "password": "Asrar12345!",
+      "id": 7
     }
   ]
 }

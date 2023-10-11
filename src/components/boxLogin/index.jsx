@@ -4,15 +4,15 @@ import {
   Box,
   Heading,
   Button,
+  Stack,
   Avatar,
   Input,
   FormControl,
   FormLabel,
   InputGroup,
   InputRightElement,
-  Text,
+  FormErrorMessage
 } from "@chakra-ui/react";
-import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
@@ -23,7 +23,8 @@ const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+  .required("Password is required"),
 });
 
 const BoxLogin = () => {
@@ -41,7 +42,7 @@ const BoxLogin = () => {
   };
 
   const allEmail = users.map((item) => item.email);
-  const allPassword = users.map((item) => item.password);
+  
   useEffect(() => {
     fatchDataLogin();
   }, []);
@@ -51,11 +52,15 @@ const BoxLogin = () => {
   };
 
   const check = (email, password) => {
-    if (allEmail.includes(email) && allPassword.includes(password)) {
-      alert("succes");
-      Navigate("/");
-    } else if (allEmail.includes(email) && !allPassword.includes(password)) {
-      alert("Password salah");
+    if (allEmail.includes(email)) {
+      const newEmail = users[allEmail.indexOf(email)];
+      if (newEmail.password.includes(password)) {
+        localStorage.setItem("akun", allEmail.indexOf(email));
+        alert("succes");
+        Navigate("/");
+      } else  {
+        alert("Password salah");
+      }
     } else {
       alert("Email Belum Terdaftar");
       Navigate("/register");
@@ -74,6 +79,7 @@ const BoxLogin = () => {
     },
   });
 
+
   return (
     <Flex
       height="100vh"
@@ -89,31 +95,35 @@ const BoxLogin = () => {
         maxWidth="400px"
         width="100%"
       >
-        <div>
+        <Stack>
           <Heading mb={4} size="lg" fontWeight="bold">
             Login
           </Heading>
           <form onSubmit={formik.handleSubmit}>
             <FormControl>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email :</FormLabel>
               <Input
+              id="email"
+              placeholder="Enter your email"
                 type="text"
                 name="email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
-              {/* <ErrorMessage name="username" component="div" className="error-message" style={{ color: "red" }}/> */}
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Password :</FormLabel>
               <InputGroup>
                 <Input
+                id="password"
+                placeholder="Enter your password"
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                 />
+                
                 <InputRightElement width="4.5rem">
                   <Button
                     h="1.75rem"
@@ -124,7 +134,6 @@ const BoxLogin = () => {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              {/* <ErrorMessage name="password" component="div" className="error-message" /> */}
             </FormControl>
 
             <Button
@@ -138,7 +147,7 @@ const BoxLogin = () => {
               Login
             </Button>
           </form>
-        </div>
+        </Stack>
       </Box>
     </Flex>
   );
