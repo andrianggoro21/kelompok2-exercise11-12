@@ -5,7 +5,7 @@ import { Image } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useMediaQuery } from "@chakra-ui/react";
 import Twitter from "../../images/twitter-logo.png";
-import { Link, } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useFormik } from "formik";
 // import * as Yup from "yup";
@@ -14,9 +14,13 @@ const BoxTimeline = () => {
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
   const [isSmallerThan1280] = useMediaQuery("(max-width: 1280px)");
 
-  const inputTimeline = async (posting) => {
+  const Navigate = useNavigate();
+  const email = localStorage.getItem("token");
+
+  const inputTimeline = async (email, posting) => {
     try {
       await axios.post("http://localhost:8000/users", {
+        email,
         posting,
       });
       alert("Input Success");
@@ -27,11 +31,12 @@ const BoxTimeline = () => {
 
   const formik = useFormik({
     initialValues: {
+      email: "",
       posting: "",
     },
 
     onSubmit: (values) => {
-      inputTimeline(values.posting);
+      inputTimeline(email, values.posting);
     },
   });
 
@@ -49,6 +54,11 @@ const BoxTimeline = () => {
   useEffect(() => {
     newTweet();
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    Navigate("/login");
+  };
 
   return (
     <>
@@ -75,7 +85,9 @@ const BoxTimeline = () => {
               <Box fontSize="40px" display="flex" gap="60px">
                 <ion-icon name="home-outline"></ion-icon>
                 <ion-icon name="notifications-outline"></ion-icon>
-                <ion-icon name="people-outline"></ion-icon>
+                <Link to="/display-data">
+                  <ion-icon name="people-outline"></ion-icon>
+                </Link>
                 <ion-icon name="person-circle-outline"></ion-icon>
               </Box>
             </Box>
@@ -97,6 +109,9 @@ const BoxTimeline = () => {
                 gap="40px"
               >
                 <Box display="flex" alignItems="center" gap="20px">
+                  <Image src={Twitter} />
+                </Box>
+                <Box display="flex" alignItems="center" gap="20px">
                   <ion-icon name="home-outline"></ion-icon>
                 </Box>
                 <Box display="flex" alignItems="center" gap="20px">
@@ -108,9 +123,12 @@ const BoxTimeline = () => {
                 <Box display="flex" alignItems="center" gap="20px">
                   <ion-icon name="mail-outline"></ion-icon>
                 </Box>
-                <Box display="flex" alignItems="center" gap="20px">
-                  <ion-icon name="people-outline"></ion-icon>
-                </Box>
+                <Link to="/display-data">
+                  <Box display="flex" alignItems="center" gap="20px">
+                    <ion-icon name="people-outline"></ion-icon>
+                  </Box>
+                </Link>
+
                 <Box
                   display="flex"
                   alignItems="center"
@@ -166,29 +184,34 @@ const BoxTimeline = () => {
                     Messages
                   </Text>
                 </Box>
-                <Box display="flex" alignItems="center" gap="20px">
-                  <ion-icon name="people-outline"></ion-icon>
-                  <Text fontSize="22px" fontWeight="600" color="#000000">
-                    Data Users
-                  </Text>
-                </Box>
+                <Link to="/display-data">
+                  <Box display="flex" alignItems="center" gap="20px">
+                    <ion-icon name="people-outline"></ion-icon>
+                    <Text fontSize="22px" fontWeight="600" color="#000000">
+                      Data Users
+                    </Text>
+                  </Box>
+                </Link>
                 <Box
                   display="flex"
                   alignItems="center"
-                  gap="20px"
+                  gap="10px"
                   backgroundColor="#eeeeee"
                   padding=".3em"
                   borderRadius="20px"
                 >
                   <ion-icon name="person-circle-outline"></ion-icon>
                   <Text fontSize="18px" fontWeight="600" color="#000000">
-                    kelompok 2
+                    {email}
                   </Text>
                 </Box>
-                <Box display="flex" flexDirection="column">
+                <Button type="submit" onClick={logout}>
+                  Logout
+                </Button>
+                {/* <Box display="flex" flexDirection="column">
                   <Link to="/login">Login</Link>
                   <Link to="/register">Register</Link>
-                </Box>
+                </Box> */}
               </Box>
             </Box>
           )}
@@ -235,7 +258,7 @@ const BoxTimeline = () => {
               <form onSubmit={formik.handleSubmit}>
                 <Box w="35em" display="flex" alignItems="flex-end" gap="1em">
                   <Input
-                    placeholder=" "
+                    placeholder="What is happening?!"
                     type="text"
                     name="posting"
                     value={formik.values.posting}
@@ -253,25 +276,38 @@ const BoxTimeline = () => {
             </Box>
             <Box
               display="flex"
-              justifyContent="center"
-              padding="1em"
-              backgroundColor="#ffffff"
+              // padding="1em"
               minH="75vh"
             >
-              <UnorderedList>
+              <UnorderedList margin="0" w="100%">
                 {tweet.length > 0 &&
                   tweet.map((item, index) => {
                     return (
-                      <Box>
-                        <ListItem
-                          fontSize="22px"
-                          fontWeight="500"
-                          color="#000000"
-                          listStyleType='none'
-                          key={index}
+                      <Box
+                        display="flex"
+                        borderBottom="1px solid #eeeeee"
+                        padding=".5em"
+                      >
+                        <Box fontSize="30px">
+                          <ion-icon name="person-circle-outline"></ion-icon>
+                        </Box>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          paddingLeft="1em"
                         >
-                          *{item.posting}
-                        </ListItem>
+                          <Text
+                            fontSize="18px"
+                            fontWeight="500"
+                            color="#000000"
+                            key={index}
+                          >
+                            {item.email}
+                          </Text>
+                          <ListItem listStyleType="none" key={index}>
+                            {item.posting}
+                          </ListItem>
+                        </Box>
                       </Box>
                     );
                   })}
@@ -312,8 +348,62 @@ const BoxTimeline = () => {
                   <ion-icon name="search-outline"></ion-icon>
                   <Input variant="unstyled" w="180px" />
                 </Box>
-                <Box display="flex" alignItems="center" gap="20px">
-                  <Text>Who to follow</Text>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  gap="10px"
+                  backgroundColor="#eeeeee"
+                  padding=".5em"
+                  borderRadius="10px"
+                >
+                  <Text fontSize="22px" fontWeight="600" color="#000000">
+                    Who to follow
+                  </Text>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent='space-between'
+                    backgroundColor="#ffffff"
+                    borderRadius="10px"
+                    padding=".2em"
+                    fontSize="22px"
+                  >
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                      <Text>Putu</Text>
+                      <ion-icon name="add-outline"></ion-icon>
+                    </Box>
+                  </Box>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent='space-between'
+                    backgroundColor="#ffffff"
+                    borderRadius="10px"
+                    padding=".2em"
+                    fontSize="22px"
+                  >
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                      <Text>Hihi</Text>
+                      <ion-icon name="add-outline"></ion-icon>
+                    </Box>
+                  </Box>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent='space-between'
+                    backgroundColor="#ffffff"
+                    borderRadius="10px"
+                    padding=".2em"
+                    fontSize="22px"
+                  >
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                      <Text>Asrar</Text>
+                      <ion-icon name="add-outline"></ion-icon>
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
             </Box>

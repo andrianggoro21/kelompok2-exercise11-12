@@ -1,16 +1,24 @@
 {
   "users": [
     {
-      "posting": "halo nama andri",
+      "email": "rizky@purwadhika.com",
+      "posting": "halo nama saya rizky",
       "id": 1
     },
     {
-      "posting": "halo nama saya ryan",
+      "email": "ryan.adikawa@gmail.com",
+      "posting": "hai nama saya ryan",
       "id": 2
     },
     {
-      "posting": "halo saya rizky",
+      "email": "andri@gmail.com",
+      "posting": "salam kenal",
       "id": 3
+    },
+    {
+      "email": "rizky@purwadhika.com",
+      "posting": "ffdfffdff",
+      "id": 4
     }
   ]
 }

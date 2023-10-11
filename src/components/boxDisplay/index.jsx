@@ -40,7 +40,7 @@ const BoxDisplay = () => {
                 <Th>No.</Th>
                 <Th>Name</Th>
                 <Th>Email</Th>
-                <Th>Passowrd</Th>
+                {/* <Th>Passowrd</Th> */}
               </Tr>
             </Thead>
             <Tbody>
@@ -51,7 +51,7 @@ const BoxDisplay = () => {
                       <Td>{index + 1}</Td>
                       <Td>{item.name}</Td>
                       <Td>{item.email}</Td>
-                      <Td>{item.password}</Td>
+                      {/* <Td>{item.password}</Td> */}
                     </Tr>
                   );
                 })}
