@@ -4,12 +4,17 @@ import {
   Box,
   Heading,
   Button,
+<<<<<<< Updated upstream
   Avatar,
+=======
+  Stack,
+>>>>>>> Stashed changes
   Input,
   FormControl,
   FormLabel,
   InputGroup,
   InputRightElement,
+<<<<<<< Updated upstream
   Text,
 } from '@chakra-ui/react';
 import { Formik, Form, ErrorMessage } from 'formik';
@@ -17,14 +22,27 @@ import * as Yup from 'yup';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+=======
+} from "@chakra-ui/react";
+import * as Yup from "yup";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+>>>>>>> Stashed changes
 import { useFormik } from "formik";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
+<<<<<<< Updated upstream
   .email('Invalid email address format')
   .required('Email is required'),
   password: Yup.string()
   .required('Password is required'),
+=======
+    .email("Invalid email address format")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
+>>>>>>> Stashed changes
 });
 
 const BoxLogin = () => {
@@ -42,13 +60,18 @@ const BoxLogin = () => {
   };
 
   const allEmail = users.map((item) => item.email);
+<<<<<<< Updated upstream
   const allPassword = users.map((item) => item.password);
+=======
+
+>>>>>>> Stashed changes
   useEffect(() => {
     fatchDataLogin();
   }, []);
 
     
   const check = (email, password) => {
+<<<<<<< Updated upstream
     if (allEmail.includes(email) && allPassword.includes(password)) {
       alert('succes')
    
@@ -58,6 +81,17 @@ const BoxLogin = () => {
       !allPassword.includes(password)
     ) {
       alert("Password salah");
+=======
+    if (allEmail.includes(email)) {
+      const newEmail = users[allEmail.indexOf(email)];
+      if (newEmail.password.includes(password)) {
+        localStorage.setItem("akun", allEmail.indexOf(email));
+        alert("succes");
+        Navigate("/");
+      } else {
+        alert("Password salah");
+      }
+>>>>>>> Stashed changes
     } else {
       alert("Email Belum Terdaftar");
     }
@@ -90,6 +124,7 @@ const BoxLogin = () => {
         maxWidth="400px"
         width="100%"
       >
+<<<<<<< Updated upstream
         {/* {authenticated ? ( */}
           {/* <Flex flexDirection="column" alignItems="center">
             <Avatar
@@ -101,6 +136,49 @@ const BoxLogin = () => {
             <Text fontSize="xl" fontWeight="bold" mb={2}>
               Welcome 😊, User!
             </Text>
+=======
+        <Stack>
+          <Heading mb={4} size="lg" fontWeight="bold">
+            Login
+          </Heading>
+          <form onSubmit={formik.handleSubmit}>
+            <FormControl>
+              <FormLabel>Email :</FormLabel>
+              <Input
+                id="email"
+                placeholder="Enter your email"
+                type="text"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Password :</FormLabel>
+              <InputGroup>
+                <Input
+                  id="password"
+                  placeholder="Enter your password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                />
+
+                <InputRightElement w="3em" >
+                  <Button
+                    h="2rem"
+                    size="sm"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+
+>>>>>>> Stashed changes
             <Button
               onClick={handleLogout}
               colorScheme="twitter"
