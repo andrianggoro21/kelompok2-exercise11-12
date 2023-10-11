@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   ChakraProvider,
-  Box,
   Heading,
   FormLabel,
   FormControl,
@@ -69,22 +68,20 @@ const BoxRegister = () => {
 
   return (
     <ChakraProvider theme={formFloating}>
-      <Box
-        display="flex"
+      <form onSubmit={formik.handleSubmit}>
+      <Stack
         align="center"
         bg="white"
         p={8}
         borderRadius="md"
         boxShadow="md"
-        maxWidth="400px"
-        width="100%"
+        width="full"
       >
-        <Heading mb={6} size="lg" fontWeight="bold">
+        <Heading mb={3} size="lg" fontWeight="bold">
           Create your account
         </Heading>
-        <form onSubmit={formik.handleSubmit}>
           <Heading as="h2"></Heading>
-          <Stack spacing={5} w="95%">
+          <Stack spacing={5} w="full">
             <FormControl
               variant="floating"
               isInvalid={formik.touched.name && formik.errors.name}
@@ -157,8 +154,8 @@ const BoxRegister = () => {
               Sign Up
             </Button>
           </Stack>
+      </Stack>
         </form>
-      </Box>
     </ChakraProvider>
   );
 };

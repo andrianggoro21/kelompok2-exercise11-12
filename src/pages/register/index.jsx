@@ -4,6 +4,7 @@ import BoxRegister from "../../components/boxRegister";
 const Register = () => {
   return (
     <Flex
+      width="100wh"
       height="100vh"
       alignItems="center"
       justifyContent="center"

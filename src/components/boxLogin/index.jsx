@@ -143,7 +143,7 @@ const BoxLogin = () => {
               size="lg"
               w="100%"
             >
-              Login
+              Log in
             </Button>
           </form>
         </Stack>
