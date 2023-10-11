@@ -3,30 +3,30 @@
     {
       "id": 1,
       "name": "Ryan Adikawa",
-      "email": "ryan.adikawa@gmail.com",
+      "email": "ryan@gmail.com",
       "password": "ryan12345"
     },
     {
       "name": "rizky",
-      "email": "rizky@purwadhika.com",
+      "email": "rizky@gmail.com",
       "password": "rizky12345",
       "id": 2
     },
     {
       "name": "qadadada",
-      "email": "qad@gmail.com",
+      "email": "putu@gmail.com",
       "password": "Ar@123",
       "id": 3
     },
     {
       "name": "Fairuz",
-      "email": "fairuz@gmail.com",
+      "email": "sam@gmail.com",
       "password": "Ae@1233434sdfsdf",
       "id": 4
     },
     {
       "name": "akang",
-      "email": "akang@gmail.com",
+      "email": "abda@gmail.com",
       "password": "A@er123",
       "id": 5
     },
@@ -38,7 +38,7 @@
     },
     {
       "name": "asrar",
-      "email": "asrar@purwadhika.com",
+      "email": "asrar@gmail.com",
       "password": "Asrar12345!",
       "id": 7
     }

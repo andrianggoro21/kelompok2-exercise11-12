@@ -37,6 +37,7 @@ const BoxTimeline = () => {
 
     onSubmit: (values) => {
       inputTimeline(email, values.posting);
+      formik.values.posting = "";
     },
   });
 
@@ -45,7 +46,7 @@ const BoxTimeline = () => {
     try {
       const response = await axios.get("http://localhost:8000/users");
       setTweet(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -53,12 +54,32 @@ const BoxTimeline = () => {
 
   useEffect(() => {
     newTweet();
-  }, []);
+  }, [tweet]);
 
   const logout = () => {
     localStorage.removeItem("token");
     Navigate("/login");
   };
+
+  const [data, setData] = useState([]);
+ 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      setData(response.data);
+      // newData(response.data);
+      // console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const newData = data.filter((input) => input.email !== email);
+  // setData(newList);
 
   return (
     <>
@@ -359,17 +380,46 @@ const BoxTimeline = () => {
                   <Text fontSize="22px" fontWeight="600" color="#000000">
                     Who to follow
                   </Text>
-                  <Box
+
+                  {newData.map((entry, index) => (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      backgroundColor="#ffffff"
+                      borderRadius="10px"
+                      padding=".2em"
+                      fontSize="18px"
+                    >
+                      <ion-icon name="person-circle-outline"></ion-icon>
+                      <Box
+                        w="85%"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Text key={index}>{entry.email}</Text>
+                        <ion-icon name="add-outline"></ion-icon>
+                      </Box>
+                    </Box>
+                  ))}
+
+                  {/* <Box
                     display="flex"
                     alignItems="center"
-                    justifyContent='space-between'
+                    justifyContent="space-between"
                     backgroundColor="#ffffff"
                     borderRadius="10px"
                     padding=".2em"
                     fontSize="22px"
                   >
                     <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                    <Box
+                      w="75%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
                       <Text>Putu</Text>
                       <ion-icon name="add-outline"></ion-icon>
                     </Box>
@@ -377,14 +427,19 @@ const BoxTimeline = () => {
                   <Box
                     display="flex"
                     alignItems="center"
-                    justifyContent='space-between'
+                    justifyContent="space-between"
                     backgroundColor="#ffffff"
                     borderRadius="10px"
                     padding=".2em"
                     fontSize="22px"
                   >
                     <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                    <Box
+                      w="75%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
                       <Text>Hihi</Text>
                       <ion-icon name="add-outline"></ion-icon>
                     </Box>
@@ -392,18 +447,23 @@ const BoxTimeline = () => {
                   <Box
                     display="flex"
                     alignItems="center"
-                    justifyContent='space-between'
+                    justifyContent="space-between"
                     backgroundColor="#ffffff"
                     borderRadius="10px"
                     padding=".2em"
                     fontSize="22px"
                   >
                     <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box w='75%' display='flex' alignItems='center' justifyContent='space-between'>
+                    <Box
+                      w="75%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
                       <Text>Asrar</Text>
                       <ion-icon name="add-outline"></ion-icon>
                     </Box>
-                  </Box>
+                  </Box> */}
                 </Box>
               </Box>
             </Box>
