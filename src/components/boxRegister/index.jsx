@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ChakraProvider,
   Box,
@@ -11,30 +12,34 @@ import {
   FormErrorMessage,
   Stack,
 } from "@chakra-ui/react";
-import formFloating from "../../themes/formFloating";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import formFloating from "../../themes/formFloating";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterSchema = Yup.object().shape({
-    name: Yup.string()
-        .min(4, "Name must be 4 characters minimum")
-        .required("Name is required"),
-    email: Yup.string()
-        .email("Invalid email address format")
-        .required("Email is required"),
-    password: Yup.string()
-        // .min(6, "Password must be 6 characters minimum")
-        .matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", 
-        `Password must be 6 characters minimum, at least contain one lowercase,
-         one uppercase, one number, and one symbol`)
-        .required("Password is required")
+  name: Yup.string()
+    .min(4, "Name must be 4 characters minimum")
+    .required("Name is required"),
+  email: Yup.string()
+    .email("Invalid email address format")
+    .required("Email is required"),
+  password: Yup.string()
+
+    .matches(
+      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$",
+      `Password must be 6 characters minimum, at least contain one lowercase,
+         one uppercase, one number, and one symbol`
+    )
+    .required("Password is required"),
 });
 
 const BoxRegister = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
   const register = async (name, email, password) => {
     try {
       await axios.post("http://localhost:3000/users", {
@@ -48,23 +53,19 @@ const BoxRegister = () => {
     }
   };
 
-    const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
 
-    const formik = useFormik({
-        initialValues: {
-            name: "",
-            email: "",
-            password: ""
-        },
-
-        validationSchema: RegisterSchema,
-        onSubmit: (values) => {
-            register(values.name, values.email, values.password);
-            navigate("/login")
-        },
-    });
-
-  const [showPassword, setShowPassword] = useState(false);
+    validationSchema: RegisterSchema,
+    onSubmit: (values) => {
+      register(values.name, values.email, values.password);
+      navigate("/login");
+    },
+  });
 
   return (
     <ChakraProvider theme={formFloating}>
@@ -136,7 +137,6 @@ const BoxRegister = () => {
                   <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
                 )}
               </FormControl>
-              {/* <Link to="Login"> */}
               <Button
                 type="submit"
                 colorScheme="twitter"
@@ -145,7 +145,6 @@ const BoxRegister = () => {
               >
                 Sign Up
               </Button>
-              {/* </Link> */}
             </Stack>
           </Box>
         </form>

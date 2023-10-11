@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
-import { Box, Text, Input } from "@chakra-ui/react";
-import { ListItem, UnorderedList } from "@chakra-ui/react";
-import { Image } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import { useMediaQuery } from "@chakra-ui/react";
-import Twitter from "../../images/twitter-logo.png";
+import {
+  Box,
+  Text,
+  Input,
+  ListItem,
+  UnorderedList,
+  Image,
+  Button,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useFormik } from "formik";
-// import * as Yup from "yup";
+import axios from "axios";
+import Twitter from "../../images/twitter-logo.png";
 
 const BoxTimeline = () => {
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
   const [isSmallerThan1280] = useMediaQuery("(max-width: 1280px)");
 
-  const Navigate = useNavigate();
-  const email = localStorage.getItem("token");
+  const [tweet, setTweet] = useState([]);
+  const [data, setData] = useState([]);
 
+  const email = localStorage.getItem("token");
+  const Navigate = useNavigate();
+
+  // input tweet
   const inputTimeline = async (email, posting) => {
     try {
       await axios.post("http://localhost:8000/users", {
         email,
         posting,
       });
-      alert("Input Success");
     } catch (err) {
       console.log(err);
     }
@@ -41,12 +48,11 @@ const BoxTimeline = () => {
     },
   });
 
-  const [tweet, setTweet] = useState([]);
+  // menampilkan tweet
   const newTweet = async () => {
     try {
       const response = await axios.get("http://localhost:8000/users");
       setTweet(response.data);
-      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -61,14 +67,11 @@ const BoxTimeline = () => {
     Navigate("/login");
   };
 
-  const [data, setData] = useState([]);
- 
+  // menampilkan data user
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/users");
       setData(response.data);
-      // newData(response.data);
-      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +82,6 @@ const BoxTimeline = () => {
   }, []);
 
   const newData = data.filter((input) => input.email !== email);
-  // setData(newList);
 
   return (
     <>
@@ -229,10 +231,6 @@ const BoxTimeline = () => {
                 <Button type="submit" onClick={logout}>
                   Logout
                 </Button>
-                {/* <Box display="flex" flexDirection="column">
-                  <Link to="/login">Login</Link>
-                  <Link to="/register">Register</Link>
-                </Box> */}
               </Box>
             </Box>
           )}
@@ -297,7 +295,6 @@ const BoxTimeline = () => {
             </Box>
             <Box
               display="flex"
-              // padding="1em"
               minH="75vh"
             >
               <UnorderedList margin="0" w="100%">
@@ -380,7 +377,6 @@ const BoxTimeline = () => {
                   <Text fontSize="22px" fontWeight="600" color="#000000">
                     Who to follow
                   </Text>
-
                   {newData.map((entry, index) => (
                     <Box
                       display="flex"
@@ -403,67 +399,6 @@ const BoxTimeline = () => {
                       </Box>
                     </Box>
                   ))}
-
-                  {/* <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    backgroundColor="#ffffff"
-                    borderRadius="10px"
-                    padding=".2em"
-                    fontSize="22px"
-                  >
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box
-                      w="75%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text>Putu</Text>
-                      <ion-icon name="add-outline"></ion-icon>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    backgroundColor="#ffffff"
-                    borderRadius="10px"
-                    padding=".2em"
-                    fontSize="22px"
-                  >
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box
-                      w="75%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text>Hihi</Text>
-                      <ion-icon name="add-outline"></ion-icon>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    backgroundColor="#ffffff"
-                    borderRadius="10px"
-                    padding=".2em"
-                    fontSize="22px"
-                  >
-                    <ion-icon name="person-circle-outline"></ion-icon>
-                    <Box
-                      w="75%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text>Asrar</Text>
-                      <ion-icon name="add-outline"></ion-icon>
-                    </Box>
-                  </Box> */}
                 </Box>
               </Box>
             </Box>

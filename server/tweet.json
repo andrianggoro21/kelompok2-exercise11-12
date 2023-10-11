@@ -14,6 +14,11 @@
       "email": "andri@gmail.com",
       "posting": "salam kenal",
       "id": 3
+    },
+    {
+      "email": "rizky@gmail.com",
+      "posting": "halo",
+      "id": 4
     }
   ]
 }
