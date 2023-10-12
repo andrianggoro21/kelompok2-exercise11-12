@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "email": "rizky@purwadhika.com",
+      "posting": "halo nama saya rizky",
+      "id": 1
+    },
+    {
+      "email": "ryan.adikawa@gmail.com",
+      "posting": "hai nama saya ryan",
+      "id": 2
+    },
+    {
+      "email": "andri@gmail.com",
+      "posting": "salam kenal",
+      "id": 3
+    },
+    {
+      "email": "rizky@gmail.com",
+      "posting": "halo",
+      "id": 4
+    }
+  ]
+}
