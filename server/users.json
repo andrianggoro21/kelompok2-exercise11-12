@@ -41,6 +41,12 @@
       "email": "asrar@gmail.com",
       "password": "Asrar12345!",
       "id": 7
+    },
+    {
+      "name": "kinur",
+      "email": "kinur@gmail.com",
+      "password": "Kinur12345@",
+      "id": 8
     }
   ]
 }
